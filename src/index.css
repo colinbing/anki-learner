@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* vertical text helpers */
+.jp-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+.jp-vertical ruby {
+  writing-mode: vertical-rl;
+}
+.jp-vertical rt {
+  writing-mode: horizontal-tb;
+  text-orientation: upright;
+  font-size: 0.6em;
+}
+
+/* optional: make JP glyphs crisp */
+.jp-text {
+  font-variant-ligatures: none;
+}
