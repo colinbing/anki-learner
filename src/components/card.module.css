@@ -90,3 +90,20 @@ rt {
 font-size: 0.5em;
 opacity: 0.85;
 }
+
+/* === POS colors after Reveal === */
+.pos_noun { background: rgba(80, 120, 200, 0.15); border-radius: 6px; }
+.pos_verb { background: rgba(200, 80, 80, 0.15);  border-radius: 6px; }
+.pos_adjective { background: rgba(60, 160, 100, 0.15); border-radius: 6px; }
+.pos_particle { background: rgba(220, 200, 60, 0.18); border-radius: 6px; }
+.pos_connector { background: rgba(140, 140, 140, 0.15); border-radius: 6px; }
+.pos_other {}
+
+/* Token flagged as unknown this round */
+.unknown { outline: 2px solid rgba(255, 120, 120, 0.6); border-radius: 6px; }
+
+/* Button palette for 4 grades */
+.vhard { background: #5b1a1a; }
+.okay  { background: #7a5a1a; }
+.good  { background: #1c5b2a; }
+.easy  { background: #275a86; }

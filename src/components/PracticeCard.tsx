@@ -4,7 +4,6 @@ import { usePractice } from "../store/usePractice";
 import JPSentence from "./JPSentence";
 import styles from "./card.module.css";
 
-// Keep types local to avoid chasing imports right now
 type LayoutMode = "horizontal" | "vertical";
 type Direction = "JP_EN" | "EN_JP";
 
@@ -19,28 +18,26 @@ export default function PracticeCard({
   showFurigana: boolean;
   fontFamily?: string;
 }) {
-  const { queue, index, showAnswer, flip, grade } = usePractice();
+  const { queue, index, showAnswer, flip, grade, markUnknown, isUnknown } = usePractice();
   const card = queue[index];
   const vertical = layout === "vertical";
 
-  // Keyboard shortcuts: Space = flip, 1/2/3 = again/hard/good
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === " ") {
         e.preventDefault();
         flip();
       }
-      if (e.key === "1") grade("again");
-      if (e.key === "2") grade("hard");
+      if (e.key === "1") grade("veryHard");
+      if (e.key === "2") grade("okay");
       if (e.key === "3") grade("good");
+      if (e.key === "4") grade("easy");
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [flip, grade]);
 
-  if (!card) {
-    return <div className={styles.cardWrap}>No cards loaded.</div>;
-  }
+  if (!card) return <div className={styles.cardWrap}>No cards loaded.</div>;
 
   return (
     <div className={styles.cardWrap}>
@@ -51,6 +48,9 @@ export default function PracticeCard({
             showFurigana={showFurigana}
             vertical={vertical}
             fontFamily={fontFamily}
+            revealed={showAnswer}                 // color only after reveal
+            onMarkUnknown={markUnknown}
+            isUnknown={isUnknown}
           />
         ) : (
           <div className={styles.enText}>{card.en}</div>
@@ -59,17 +59,16 @@ export default function PracticeCard({
 
       <div className={styles.answerArea}>
         {direction === "JP_EN" ? (
-          showAnswer ? (
-            <div className={styles.enText}>{card.en}</div>
-          ) : (
-            <RevealTip />
-          )
+          showAnswer ? <div className={styles.enText}>{card.en}</div> : <RevealTip />
         ) : showAnswer ? (
           <JPSentence
             tokens={card.jp}
             showFurigana={showFurigana}
             vertical={vertical}
             fontFamily={fontFamily}
+            revealed
+            onMarkUnknown={markUnknown}
+            isUnknown={isUnknown}
           />
         ) : (
           <RevealTip />
@@ -77,14 +76,17 @@ export default function PracticeCard({
       </div>
 
       <div className={styles.btnRow}>
-        <button className={`${styles.btn} ${styles.again}`} onClick={() => grade("again")}>
-          Again (1)
+        <button className={`${styles.btn} ${styles.vhard}`} onClick={() => grade("veryHard")}>
+          Very Hard (1)
         </button>
-        <button className={`${styles.btn} ${styles.hard}`} onClick={() => grade("hard")}>
-          Hard (2)
+        <button className={`${styles.btn} ${styles.okay}`} onClick={() => grade("okay")}>
+          Okay (2)
         </button>
         <button className={`${styles.btn} ${styles.good}`} onClick={() => grade("good")}>
           Good (3)
+        </button>
+        <button className={`${styles.btn} ${styles.easy}`} onClick={() => grade("easy")}>
+          Easy (4)
         </button>
         <button className={styles.flip} onClick={() => flip()}>
           Flip (Space)

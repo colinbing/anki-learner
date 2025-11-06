@@ -1,22 +1,29 @@
+// src/types.ts
 export type Direction = "JP_EN" | "EN_JP";
 export type LayoutMode = "horizontal" | "vertical";
 export type Difficulty = "beginner" | "intermediate" | "advanced";
 
+export type PartOfSpeech =
+  | "noun"
+  | "verb"
+  | "adjective"
+  | "particle"
+  | "connector"
+  | "other";
 
 export type Token = {
-id: string;
-surface: string; // 表記
-reading?: string; // ふりがな (Kana)
-gloss?: string; // quick meaning for tooltip
+  id: string;
+  surface: string;
+  reading?: string;
+  gloss?: string;
+  pos?: PartOfSpeech; // for reveal coloring
 };
-
 
 export type Card = {
-id: string;
-jp: Token[]; // tokenized Japanese with optional furigana & gloss
-en: string; // target translation or prompt
-hint?: string; // optional extra hint
+  id: string;
+  jp: Token[];
+  en: string;
+  hint?: string;
 };
 
-
-export type AnswerGrade = "again" | "hard" | "good";
+export type AnswerGrade = "veryHard" | "okay" | "good" | "easy";
