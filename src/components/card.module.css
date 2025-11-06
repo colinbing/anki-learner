@@ -1,0 +1,92 @@
+.cardWrap {
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: 16px;
+padding: 16px;
+}
+
+
+.promptArea, .answerArea {
+display: grid;
+align-items: center;
+justify-items: center;
+min-height: 140px;
+background: rgba(255,255,255,0.02);
+border-radius: 12px;
+padding: 12px;
+}
+
+
+.enText {
+font-size: 1.25rem;
+line-height: 1.5;
+text-align: center;
+}
+
+
+.reveal {
+opacity: 0.7;
+font-size: 0.95rem;
+}
+
+
+.btnRow {
+display: grid;
+grid-template-columns: repeat(4, minmax(0, 1fr));
+gap: 8px;
+}
+
+
+.btn {
+appearance: none;
+border: 0;
+padding: 10px 12px;
+border-radius: 10px;
+background: #1b1b1b;
+color: #fff;
+cursor: pointer;
+font-weight: 600;
+}
+.btn:hover { filter: brightness(1.1); }
+
+
+.again { background: #5b1a1a; }
+.hard { background: #7a5a1a; }
+.good { background: #1c5b2a; }
+.flip { background: #26314d; }
+
+
+/* Japanese text rendering */
+.horizontal {
+display: flex;
+flex-wrap: wrap;
+font-size: 1.8rem;
+line-height: 2.2rem;
+gap: 0.2rem 0.3rem;
+text-align: center;
+}
+
+
+.vertical {
+writing-mode: vertical-rl;
+text-orientation: mixed; /* keep kana upright; allow kanji glyphs */
+font-size: 2rem;
+line-height: 2.3rem;
+letter-spacing: 0.02em;
+height: 100%;
+display: inline-flex;
+align-items: center;
+}
+
+
+.token {
+position: relative;
+padding: 0 2px;
+}
+
+
+/* Improve ruby readability in both modes */
+ruby { ruby-position: over; }
+rt {
+font-size: 0.5em;
+opacity: 0.85;
+}
