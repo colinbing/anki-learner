@@ -1,27 +1,26 @@
-// src/components/SessionBar.tsx
-import { miniGenerate } from "../generator/minigen";
 import { usePractice } from "../store/usePractice";
+import { generate } from "../generator/generate";
 
-export default function SessionBar() {
+export default function SessionBar({ count = 20 }: { count?: number }) {
   const inject = usePractice((s) => s.inject);
 
+  const start = () => {
+    const cards = generate(count);
+    inject(cards);
+  };
+
   return (
-    <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+    <div className="mb-3 flex items-center gap-3">
       <button
-        onClick={() => inject(miniGenerate(20))}
+        onClick={start}
+        className="px-4 py-2 rounded-xl font-extrabold text-white"
         style={{
-          appearance: "none",
-          border: 0,
-          background: "#10b981",        // teal-500
-          color: "#fff",
-          borderRadius: 12,
-          padding: "10px 14px",
-          fontWeight: 800,
-          boxShadow: "0 4px 14px rgba(0,0,0,0.12)",
-          cursor: "pointer",
+          background:
+            "linear-gradient(180deg, rgba(34,197,94,1) 0%, rgba(16,185,129,1) 100%)",
+          boxShadow: "0 8px 24px rgba(16,185,129,0.35)",
         }}
       >
-        Start New Session (20)
+        Start Practice ({count})
       </button>
     </div>
   );
