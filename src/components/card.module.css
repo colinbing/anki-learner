@@ -154,3 +154,51 @@ opacity: 0.85;
   .actionsGrid { grid-template-columns: 1fr 1fr; }
   .flipLarge { grid-column: 1 / -1; }
 }
+
+/* Shared button base */
+.btn {
+  appearance: none;
+  border: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  height: 48px;                 /* a tad taller for touch targets */
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  transition: transform .04s ease, box-shadow .15s ease, filter .15s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 2px solid #ffffff; outline-offset: 3px; }
+
+/* Vivid grades */
+.vhard { background: #b01f2e; }     /* crimson */
+.okay  { background: #b07a1f; }     /* warm amber */
+.good  { background: #1f8a4d; }     /* emerald */
+.easy  { background: #2a73c9; }     /* azure */
+
+/* Subtle depth on hover */
+.vhard:hover { filter: brightness(1.08); box-shadow: 0 6px 18px rgba(176,31,46,.25); }
+.okay:hover  { filter: brightness(1.08); box-shadow: 0 6px 18px rgba(176,122,31,.25); }
+.good:hover  { filter: brightness(1.08); box-shadow: 0 6px 18px rgba(31,138,77,.25); }
+.easy:hover  { filter: brightness(1.08); box-shadow: 0 6px 18px rgba(42,115,201,.25); }
+
+/* Big Flip stays full-row, lighter blue */
+.flipLarge {
+  grid-column: 1 / -1;
+  background: #3b82f6;          /* Tailwind’s blue-500 */
+  border-radius: 12px;
+  height: 48px;
+  font-weight: 800;
+}
+.flipLarge:hover { filter: brightness(1.06); box-shadow: 0 6px 18px rgba(59,130,246,.25); }
+
+/* POS chips (slightly brighter for readability on light bg) */
+.pos_noun      { background: rgba(80,120,200,0.20);  border-radius: 8px; }
+.pos_verb      { background: rgba(220,90,90,0.20);   border-radius: 8px; }
+.pos_adjective { background: rgba(60,160,100,0.20);  border-radius: 8px; }
+.pos_particle  { background: rgba(240,210,70,0.26);  border-radius: 8px; }
+.pos_connector { background: rgba(150,150,150,0.20); border-radius: 8px; }
+
+/* Unknown token outline slightly stronger for contrast */
+.unknown { outline: 2px solid rgba(255, 120, 120, 0.75); border-radius: 8px; }

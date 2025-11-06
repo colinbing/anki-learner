@@ -1,16 +1,10 @@
 // src/App.tsx
 import { SettingsBar } from "./components/SettingsBar";
 import PracticeArea from "./components/PracticeArea";
-
-// If your settings store file or keys differ, change this import/selectors accordingly.
-import { useSettingsStore } from "./state/useSettings.ts";
+import SessionBar from "./components/SessionBar";
+import { useSettingsStore } from "./state/useSettings"; // <- drop the .ts
 
 export default function App() {
-  // Expected keys in your settings store:
-  // layout: "horizontal" | "vertical"
-  // direction: "JP_EN" | "EN_JP"
-  // furiganaEnabled: boolean
-  // fontFamily: string | undefined
   const layout = useSettingsStore((s) => s.layout as "horizontal" | "vertical");
   const direction = useSettingsStore((s) => (s.direction === "JP_EN" ? "JP_EN" : "EN_JP"));
   const showFurigana = useSettingsStore((s) => s.furiganaEnabled as boolean);
@@ -23,6 +17,9 @@ export default function App() {
           <h1 className="text-2xl font-semibold">JP Drills</h1>
           <SettingsBar />
         </header>
+
+        {/* Session controls */}
+        <SessionBar />
 
         {/* Practice Card Area */}
         <div className="rounded-xl border p-6">
