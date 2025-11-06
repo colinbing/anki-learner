@@ -1,4 +1,3 @@
-// src/components/PracticeCard.tsx
 import { useEffect } from "react";
 import { usePractice } from "../store/usePractice";
 import JPSentence from "./JPSentence";
@@ -28,6 +27,7 @@ export default function PracticeCard({
         e.preventDefault();
         flip();
       }
+      if (!showAnswer) return;
       if (e.key === "1") grade("veryHard");
       if (e.key === "2") grade("okay");
       if (e.key === "3") grade("good");
@@ -35,7 +35,7 @@ export default function PracticeCard({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [flip, grade]);
+  }, [flip, grade, showAnswer]);
 
   if (!card) return <div className={styles.cardWrap}>No cards loaded.</div>;
 
@@ -48,7 +48,7 @@ export default function PracticeCard({
             showFurigana={showFurigana}
             vertical={vertical}
             fontFamily={fontFamily}
-            revealed={showAnswer}                 // color only after reveal
+            revealed={showAnswer}
             onMarkUnknown={markUnknown}
             isUnknown={isUnknown}
           />
@@ -75,23 +75,29 @@ export default function PracticeCard({
         )}
       </div>
 
-      <div className={styles.btnRow}>
-        <button className={`${styles.btn} ${styles.vhard}`} onClick={() => grade("veryHard")}>
-          Very Hard (1)
-        </button>
-        <button className={`${styles.btn} ${styles.okay}`} onClick={() => grade("okay")}>
-          Okay (2)
-        </button>
-        <button className={`${styles.btn} ${styles.good}`} onClick={() => grade("good")}>
-          Good (3)
-        </button>
-        <button className={`${styles.btn} ${styles.easy}`} onClick={() => grade("easy")}>
-          Easy (4)
-        </button>
-        <button className={styles.flip} onClick={() => flip()}>
-          Flip (Space)
-        </button>
-      </div>
+      {/* Actions: Flip before reveal, grading after */}
+      {!showAnswer ? (
+        <div className={styles.actionsGrid}>
+          <button className={`${styles.btn} ${styles.flipLarge}`} onClick={() => flip()}>
+            Flip (Space)
+          </button>
+        </div>
+      ) : (
+        <div className={styles.actionsGrid}>
+          <button className={`${styles.btn} ${styles.vhard}`} onClick={() => grade("veryHard")}>
+            Very Hard (1)
+          </button>
+          <button className={`${styles.btn} ${styles.okay}`} onClick={() => grade("okay")}>
+            Okay (2)
+          </button>
+          <button className={`${styles.btn} ${styles.good}`} onClick={() => grade("good")}>
+            Good (3)
+          </button>
+          <button className={`${styles.btn} ${styles.easy}`} onClick={() => grade("easy")}>
+            Easy (4)
+          </button>
+        </div>
+      )}
     </div>
   );
 }

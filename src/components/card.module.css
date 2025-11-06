@@ -107,3 +107,50 @@ opacity: 0.85;
 .okay  { background: #7a5a1a; }
 .good  { background: #1c5b2a; }
 .easy  { background: #275a86; }
+
+
+/* Actions layout that keeps width identical before/after reveal */
+.actionsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.flipLarge {
+  grid-column: 1 / -1;        /* spans all 4 columns */
+  background: #2f6fb0;
+  border-radius: 10px;
+  height: 44px;
+  font-weight: 700;
+}
+
+/* Make all buttons same height/shape; good for mobile */
+.btn { height: 44px; border-radius: 10px; }
+
+/* Small layout polish */
+.cardWrap {
+  display: grid;
+  gap: 16px;
+  grid-template-rows: 1fr auto auto;
+  background: var(--panel, #0b0b0b00);
+  color: var(--text, inherit);
+  padding: 12px;
+}
+
+.promptArea, .answerArea {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  min-height: 140px;
+  background: rgba(0,0,0,0.02);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+/* Mobile: stack nicely */
+@media (max-width: 640px) {
+  .horizontal { font-size: 1.6rem; line-height: 2rem; }
+  .vertical   { font-size: 1.8rem; line-height: 2.1rem; }
+  .actionsGrid { grid-template-columns: 1fr 1fr; }
+  .flipLarge { grid-column: 1 / -1; }
+}

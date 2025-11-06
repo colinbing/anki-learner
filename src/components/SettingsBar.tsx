@@ -1,29 +1,36 @@
-import { useSettings } from '../state/store';
+import { useSettingsStore } from "../state/useSettings";
 
-export const SettingsBar = () => {
-  const { difficulty, setDifficulty, mode, setMode, writingMode, setWritingMode, jpFont, setJpFont, furigana, setFurigana } = useSettings();
+export function SettingsBar() {
+  const { direction, layout, furiganaEnabled, fontFamily,
+          setDirection, setLayout, setFurigana, setFont } = useSettingsStore();
+
   return (
-    <div className="flex flex-wrap gap-2 items-center">
-      <select value={difficulty} onChange={(e)=>setDifficulty(e.target.value as any)} className="px-2 py-1 rounded border">
-        <option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option>
+    <div className="flex gap-2 items-center">
+      <select value={direction} onChange={(e) => setDirection(e.target.value as any)}>
+        <option value="JP_EN">JP → EN</option>
+        <option value="EN_JP">EN → JP</option>
       </select>
-      <select value={mode} onChange={(e)=>setMode(e.target.value as any)} className="px-2 py-1 rounded border">
-        <option value="jp-en">JP → EN</option><option value="en-jp">EN → JP</option><option value="both">Both</option>
-      </select>
-      <select value={writingMode} onChange={(e)=>setWritingMode(e.target.value as any)} className="px-2 py-1 rounded border">
+
+      <select value={layout} onChange={(e) => setLayout(e.target.value as any)}>
         <option value="horizontal">Horizontal</option>
-        <option value="vertical">Vertical (縦書き)</option>
+        <option value="vertical">Vertical（縦書き）</option>
       </select>
-      <select value={jpFont} onChange={(e)=>setJpFont(e.target.value as any)} className="px-2 py-1 rounded border">
-        <option value="gothic">Gothic (ゴシック)</option>
-        <option value="mincho">Mincho (明朝)</option>
-        <option value="manga">Book/Manga</option>
-        <option value="ui">System UI</option>
+
+      <select value={fontFamily} onChange={(e) => setFont(e.target.value)}>
+        <option value="">System</option>
+        <option value='"Hiragino Mincho ProN", "Noto Serif JP", serif'>Mincho（明朝）</option>
+        <option value='"Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif'>Gothic（ゴシック）</option>
+        <option value='"Yu Mincho", serif'>Yu Mincho</option>
       </select>
-      <label className="inline-flex items-center gap-1 text-sm">
-        <input type="checkbox" checked={furigana} onChange={(e)=>setFurigana(e.target.checked)} />
+
+      <label className="inline-flex items-center gap-1">
+        <input
+          type="checkbox"
+          checked={furiganaEnabled}
+          onChange={(e) => setFurigana(e.target.checked)}
+        />
         Furigana
       </label>
     </div>
   );
-};
+}
